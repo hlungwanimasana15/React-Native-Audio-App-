@@ -1,10 +1,10 @@
 
 import { Audio } from 'expo-av';
 import React, { useEffect, useState } from 'react'
-import { Button, View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
+import { Button, View, Text, StyleSheet, TextInput, Pressable, ImageBackground } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 export default function Home() {
@@ -174,13 +174,18 @@ export default function Home() {
     }, [title])
 
     return (
-
+        <ImageBackground
+        source={require('../assets/background.jpg')}
+        style={styles.backgroundImage}
+      >
 
         <View style={styles.container}>
             <Text>{messege}</Text>
+            <Text style={styles.heading}>Audio Recording App</Text>
+
             <TextInput
                 onChangeText={text => setTitle(text)}
-                placeholder='title'
+
                 style={styles.inputText}
                 value={title}>
 
@@ -193,21 +198,26 @@ export default function Home() {
             </Pressable> */}
             <Button
 
-                title={recording ? 'Stop Recording' : 'Start recording'}
+                title={recording ? 'Stop Recording and save' : 'Start recording'}
                 onPress={recording ? stopRecording : startRecording} />
-            {getRecordingLines()}
+            <View style={styles.Lines}>
+                {getRecordingLines()}
+            </View>
 
             <StatusBar style="auto" />
         </View>
+        </ImageBackground>
     )
 
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'#ff9999',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: 'white',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        padding: 30,
+
     },
     row: {
         flexDirection: 'row',
@@ -217,13 +227,13 @@ const styles = StyleSheet.create({
     fill: {
         flex: 1,
         margin: 16,
-        fontSize:20,
-        color:'#560319',
+        fontSize: 20,
+        color: '#560319',
     },
     button: {
 
         backgroundColor: 'red',
-        border: 'none',
+        borderWidth: 'none',
         color: 'white',
         padding: 15,
         textAlign: 'center',
@@ -242,15 +252,27 @@ const styles = StyleSheet.create({
     },
 
     inputText: {
-        width: 250,
-        backgroundColor: '#d9603b',
-        color: 'white',
+        width: 290,
+        backgroundColor: 'white',
+        color: 'black',
         padding: 14,
         margin: 8,
-        border: 1,
+        borderWidth: 1,
         borderRadius: 4,
         boxSizing: 'border-box',
-        marginBottom:50,
+        marginBottom: 50,
     },
+    heading: {
+        paddingTop: 70,
+        fontWeight: 'bold',
+        fontSize: 30,
+        paddingBottom: 50,
+        color: 'blue'
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover', // or 'stretch' depending on your preference
+      }
+    
 
 });
